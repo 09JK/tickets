@@ -14,6 +14,8 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 from config.settings import Settings
 from config.database import Database
 from utils.logger import setup_logging
+from utils.i18n import setup_i18n
+from web.server import create_app, start_web_server
 import discord
 from ezcord import Bot
 
@@ -26,6 +28,11 @@ async def main():
     # Setup logging
     setup_logging(settings.log_level)
     logger = logging.getLogger(__name__)
+    
+    # Setup internationalization
+    i18n_dir = Path(__file__).parent / "src" / "i18n" 
+    if i18n_dir.exists():
+        setup_i18n(i18n_dir)
     
     # Initialize database
     database = Database(settings.database_url)
@@ -46,15 +53,30 @@ async def main():
     bot.settings = settings
     bot.database = database
     
+    # Create web app
+    web_app = create_app(database, settings)
+    
     # Load cogs
     await bot.load_extension("cogs.tickets")
     await bot.load_extension("cogs.admin")
     await bot.load_extension("cogs.events")
     
-    # Start the bot
+    # Start the bot and web server concurrently
     logger.info(f"Starting Discord Tickets Bot v{settings.version}")
-    async with bot:
-        await bot.start(settings.bot_token)
+    
+    async def start_bot():
+        async with bot:
+            await bot.start(settings.bot_token)
+    
+    async def start_web():
+        await start_web_server(web_app, settings)
+    
+    # Run both bot and web server
+    await asyncio.gather(
+        start_bot(),
+        start_web(),
+        return_exceptions=True
+    )
 
 
 if __name__ == "__main__":
