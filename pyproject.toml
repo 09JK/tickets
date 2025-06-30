@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "discord-tickets"
+version = "4.1.0"
+description = "The most popular open-source ticket management bot for Discord - Python version"
+readme = "README.md"
+license = {text = "GPL-3.0-or-later"}
+authors = [
+    {name = "eartharoid", email = "contact@eartharoid.me"},
+    {name = "09JK"},
+]
+keywords = ["discord", "tickets", "bot"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "py-cord>=2.4.0",
+    "ezcord>=1.0.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.12.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "cryptography>=41.0.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1",
+    "structlog>=23.2.0",
+    "rich>=13.7.0",
+    "pendulum>=2.1.2",
+    "aiohttp>=3.9.0",
+    "aiosqlite>=0.19.0",
+    "asyncpg>=0.29.0",
+    "aiomysql>=0.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.11.0",
+    "isort>=5.12.0",
+    "mypy>=1.7.0",
+]
+
+[project.urls]
+Homepage = "https://discordtickets.app"
+Repository = "https://github.com/09JK/tickets"
+Issues = "https://github.com/09JK/tickets/issues"
+Documentation = "https://discordtickets.app"
+
+[project.scripts]
+tickets-bot = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bot*", "api*", "config*", "utils*", "database*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
