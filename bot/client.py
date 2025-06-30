@@ -53,7 +53,7 @@ class TicketsBot(Bot):
         
         # Initialize database
         from database.models import init_db
-        self.db_engine, self.db_session_factory = await init_db(self.settings.db_connection_url or "sqlite:///tickets.db")
+        self.db_engine, self.db_session_factory = await init_db(self.settings.db_connection_url or "sqlite+aiosqlite:///tickets.db")
         
         # Initialize ticket manager
         self.ticket_manager = TicketManager(self)

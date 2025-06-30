@@ -1,8 +1,63 @@
 """Extended Discord embed utilities."""
 
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
-import discord
+if TYPE_CHECKING:
+    import discord
+
+
+try:
+    import discord
+    DISCORD_AVAILABLE = True
+except ImportError:
+    DISCORD_AVAILABLE = False
+    # Create mock classes for testing without Discord
+    class MockColor:
+        def __init__(self, value=0):
+            self.value = value
+        
+        @classmethod
+        def blue(cls):
+            return cls(0x0099ff)
+        
+        @classmethod
+        def green(cls):
+            return cls(0x00ff00)
+        
+        @classmethod
+        def red(cls):
+            return cls(0xff0000)
+        
+        @classmethod
+        def yellow(cls):
+            return cls(0xffff00)
+    
+    class MockEmbed:
+        def __init__(self, **kwargs):
+            self.title = kwargs.get('title')
+            self.description = kwargs.get('description')
+            self.color = kwargs.get('color')
+            self.fields = []
+            self.footer = {}
+            self.author = {}
+        
+        def set_footer(self, text=None, icon_url=None):
+            self.footer = {'text': text, 'icon_url': icon_url}
+            return self
+        
+        def set_author(self, name=None, icon_url=None):
+            self.author = {'name': name, 'icon_url': icon_url}
+            return self
+        
+        def add_field(self, name, value, inline=True):
+            self.fields.append({'name': name, 'value': value, 'inline': inline})
+            return self
+    
+    # Use mock classes
+    discord = type('MockDiscord', (), {
+        'Color': MockColor,
+        'Embed': MockEmbed,
+    })()
 
 
 class ExtendedEmbedBuilder(discord.Embed):
@@ -23,6 +78,9 @@ class ExtendedEmbedBuilder(discord.Embed):
     
     def set_color_from_hex(self, hex_color: str) -> "ExtendedEmbedBuilder":
         """Set color from hex string."""
+        if not DISCORD_AVAILABLE:
+            return self
+            
         if hex_color.startswith("#"):
             hex_color = hex_color[1:]
         

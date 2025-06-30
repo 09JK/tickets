@@ -44,6 +44,9 @@ class Settings(BaseSettings):
         db_provider = values.get("db_provider", "sqlite")
         if db_provider != "sqlite" and not v:
             raise ValueError("DB_CONNECTION_URL must be set when DB_PROVIDER is not 'sqlite'")
+        # Set default SQLite URL with async driver if not provided
+        if db_provider == "sqlite" and not v:
+            v = "sqlite+aiosqlite:///tickets.db"
         return v
     
     @validator("db_provider")
