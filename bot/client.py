@@ -74,7 +74,9 @@ class TicketsBot(Bot):
         """Load all bot extensions."""
         extensions = [
             "bot.commands.tickets",
-            # More extensions will be added here
+            "bot.commands.new",
+            "bot.commands.close",
+            "bot.interactions.buttons.ticket_buttons",
         ]
         
         for extension in extensions:

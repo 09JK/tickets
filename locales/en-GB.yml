@@ -1,0 +1,67 @@
+commands:
+  slash:
+    tickets:
+      response:
+        fields:
+          open:
+            name: "Open Tickets"
+          closed:
+            name: "Recent Closed Tickets"
+        title: "Your Tickets"
+    new:
+      description: "Create a new ticket"
+      response:
+        title: "Create New Ticket"
+        description: "Please select a category for your ticket:"
+    close:
+      description: "Close a ticket"
+      response:
+        title: "Closing Ticket"
+        description: "This ticket will be closed in a few seconds..."
+
+misc:
+  not_ticket:
+    title: "Not a Ticket"
+    description: "This channel is not a ticket."
+  permission_denied:
+    title: "Permission Denied"
+    description: "You don't have permission to use this command."
+  error:
+    title: "Error"
+    description: "An error occurred while processing your request."
+  already_closed:
+    title: "Already Closed"
+    description: "This ticket is already closed."
+
+modals:
+  topic:
+    label: "Topic"
+    placeholder: "What is your ticket about?"
+  questions:
+    title: "Ticket Information"
+
+buttons:
+  claim: "Claim"
+  close: "Close"
+  edit: "Edit"
+
+ticket:
+  created:
+    title: "Ticket Created!"
+    description: "Your ticket has been created: {channel}"
+  claimed:
+    title: "Ticket Claimed"
+    description: "Ticket claimed by {user}"
+  closed:
+    title: "Ticket Closed"
+    description: "This ticket has been closed."
+
+categories:
+  none:
+    title: "No Categories"
+    description: "No ticket categories are configured for this server."
+
+errors:
+  generic: "An unexpected error occurred."
+  ticket_creation_failed: "Failed to create ticket. Please try again."
+  category_not_found: "Category not found."
