@@ -1,0 +1,44 @@
+# Discord Bot Dependencies
+py-cord>=2.4.0
+ezcord>=1.0.0
+
+# Database
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+aiosqlite>=0.19.0  # SQLite async support
+asyncpg>=0.29.0    # PostgreSQL async support
+aiomysql>=0.2.0    # MySQL async support
+
+# API Server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Security & Authentication
+cryptography>=41.0.0
+pyjwt>=2.8.0
+passlib[bcrypt]>=1.7.4
+
+# Utilities
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+aiofiles>=23.2.1
+
+# Logging
+structlog>=23.2.0
+rich>=13.7.0
+
+# Date/Time
+pendulum>=2.1.2
+
+# HTTP Client
+aiohttp>=3.9.0
+
+# Development
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.11.0
+isort>=5.12.0
+mypy>=1.7.0
